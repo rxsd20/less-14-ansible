@@ -1,0 +1,35 @@
+---
+- name: installing nginx
+  apt:
+    name: nginx
+    state: present
+    update_cache: true
+
+- name: mkdir and chown and chmod
+  file:
+    path: /var/www/{{ directory }}
+    state: directory
+    owner: vagrant
+    group: vagrant
+    mode: 0755
+
+- name: copy index html
+  template:
+    src: index.html.j2
+    dest: /var/www/{{ directory }}index.html
+
+- name: absent default nginx conf
+  file:
+    path: /etc/nginx/sites-available/default
+    state: absent
+
+- name: add new default nginx conf
+  template:
+    src: default.j2
+    dest: /etc/nginx/sites-available/default
+
+- name: enabled and restarted nginx
+  systemd:
+    name: nginx
+    state: restarted
+    enabled: True

@@ -1,0 +1,11 @@
+---
+  - hosts: all
+    become: true
+    roles:
+      - nginx
+
+    tasks:
+      - name: check web site on port 8080
+        shell: curl {{ ansible_host }}:{{ port }}
+        register: check
+      - debug: msg="{{ check }}"

@@ -1,0 +1,6 @@
+ansible_host: 192.168.121.240
+phrase1: "Syntactic sugar causes semicolon cancer"
+phrase2: "Have a great day!"
+directory: "domain/html/"
+port: "8080"
+domain: "domain.loc"
